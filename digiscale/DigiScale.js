@@ -6,10 +6,12 @@ function SetValue(value) {
 }
 
 function SetNumberOfDigits(value) {
+    let SSD = new SevenSegmentDisplay("SVGSSD");
     SSD.NumberOfDigits = value;
 }
 
 function SetDecimalPlaces(value) {
+    let SSD = new SevenSegmentDisplay("SVGSSD");
     SSD.NumberOfDecimalPlaces = value;
 }
 

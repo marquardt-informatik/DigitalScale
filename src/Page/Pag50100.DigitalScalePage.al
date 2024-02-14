@@ -18,8 +18,6 @@ page 50100 DigitalScalePage
                 ApplicationArea = All;
                 trigger OnControlAddInReady();
                 begin
-                    //CurrPage.DigitalScaleDisplay.SetNumberOfDigits(12);
-                    //CurrPage.DigitalScaleDisplay.SetDecimalPlaces(2);
                     DigitalScaleValue := 1234.56;
                     CurrPage.DigitalScaleDisplay.SetValue(DigitalScaleValue);
                 end;
