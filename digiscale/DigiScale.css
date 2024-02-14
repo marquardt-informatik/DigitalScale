@@ -1,0 +1,26 @@
+/* Grundlegende Stildefinitionen */
+.scale-display {
+    font-family: 'Segment7Standard', sans-serif; /* Falls Sie eine spezifische Siebensegment-Schriftart verwenden möchten */
+    color: var(--font-color, #000); /* Standardfarbe, überschreibbar durch CSS Variablen */
+    background-color: var(--background-color, #fff); /* Standard-Hintergrundfarbe */
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.scale-value {
+    font-size: 4em; /* Große Ziffern für die Waagenanzeige */
+    margin: 0;
+}
+
+.scale-unit {
+    font-size: 1.5em; /* Kleinere Einheit-Anzeige */
+    margin-left: 5px;
+}
+
+/* Optional: Falls Sie die Siebensegment-Optik weiter anpassen möchten */
+.segment-display {
+    /* Hier könnten spezifische Stile für eine detailliertere Siebensegment-Darstellung eingefügt werden */
+}
