@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "a3546d7d-0120-43e3-a1a5-6f223ad79f6f",
+		"name": "NT Sandbox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33037191"
+	},
+	"item": [
+		{
+			"name": "CRONUS",
+			"item": [
+				{
+					"name": "Companies GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.businesscentral.dynamics.com/v2.0/{{tenant}}/{{environment}}/api/Learnship/aws/v1.0/companies",
+							"protocol": "https",
+							"host": [
+								"api",
+								"businesscentral",
+								"dynamics",
+								"com"
+							],
+							"path": [
+								"v2.0",
+								"{{tenant}}",
+								"{{environment}}",
+								"api",
+								"Learnship",
+								"aws",
+								"v1.0",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ping POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://api.businesscentral.dynamics.com/v2.0/{{tenant}}/{{environment}}/ODataV4/DScaleFunctions_Ping?company={{Company}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"businesscentral",
+								"dynamics",
+								"com"
+							],
+							"path": [
+								"v2.0",
+								"{{tenant}}",
+								"{{environment}}",
+								"ODataV4",
+								"DScaleFunctions_Ping"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "{{Company}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SetWeight POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"weight\": \"12345.67\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.businesscentral.dynamics.com/v2.0/{{tenant}}/{{environment}}/ODataV4/DScaleFunctions_SetWeight?company={{Company}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"businesscentral",
+								"dynamics",
+								"com"
+							],
+							"path": [
+								"v2.0",
+								"{{tenant}}",
+								"{{environment}}",
+								"ODataV4",
+								"DScaleFunctions_SetWeight"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "{{Company}}"
+								},
+								{
+									"key": "Weight",
+									"value": "12345.67",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientId",
+				"value": "0aa72588-df1c-4807-af6c-7e6e78e676ae",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "sfx8Q~hO8lYuPFGtesx5vzz13MEbUy0X5NWzgc.y",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://login.microsoftonline.com/{{tenant}}/oauth2/token?resource=https://api.businesscentral.dynamics.com",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "PM",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "https://api.businesscentral.dynamics.com/.default",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://login.microsoftonline.com/{{tenant}}/oauth2/authorize?resource=https://api.businesscentral.dynamics.com",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

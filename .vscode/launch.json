@@ -2,13 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Docker",
+            "name": "Publish NavTalents - Sandbox",
             "type": "al",
             "request": "launch",
-            "environmentType": "OnPrem",
-            "server": "http://bc23",
-            "serverInstance": "BC",
-            "authentication": "UserPassword",
+            "environmentType": "Sandbox",
+            "environmentName": "Sandbox",
+            "tenant": "41da2d92-4d77-4c38-9693-dedc70d343a7",
             "startupObjectId": 50100,
             "breakOnError": "All",
             "breakOnRecordWrite": "None",
@@ -16,9 +15,7 @@
             "enableSqlInformationDebugger": true,
             "enableLongRunningSqlStatements": true,
             "longRunningSqlStatementsThreshold": 500,
-            "numberOfSqlStatements": 10,
-            "tenant": "default",
-            "usePublicURLFromServer": true
+            "numberOfSqlStatements": 10
         }
     ]
 }

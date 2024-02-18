@@ -13,8 +13,13 @@ controladdin DigitalScaleDisplay
     /// OnControlAddInReady.
     /// </summary>
     event OnControlAddInReady();
+    event RefreshPage();
+
     procedure SetValue(Value: Decimal);
     procedure SetNumberOfDigits(Digits: Integer);
     procedure SetDecimalPlaces(DecimalPlaces: Integer);
     procedure Render(HTML: Text);
+
+    procedure StartTimer(milliSeconds: Integer);
+    procedure StopTimer();
 }

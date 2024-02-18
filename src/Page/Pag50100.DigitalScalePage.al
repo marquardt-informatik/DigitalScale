@@ -18,37 +18,34 @@ page 50100 DigitalScalePage
                 ApplicationArea = All;
                 trigger OnControlAddInReady();
                 begin
-                    DigitalScaleValue := 1234.56;
-                    CurrPage.DigitalScaleDisplay.SetValue(DigitalScaleValue);
+                    StartMeasurement();
                 end;
-            }
-        }
-    }
 
-    actions
-    {
-        area(Processing)
-        {
-            action(UpdateDigitalScaleValue)
-            {
-                ApplicationArea = All;
-                Caption = 'Update Digital Scale';
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                Image = Calculate;
-
-                trigger OnAction();
+                trigger RefreshPage()
                 var
-                    i: integer;
+                    DigitalScaleValueText: Text;
                 begin
-                    DigitalScaleValue += Random(100) * 0.1;
-                    CurrPage.DigitalScaleDisplay.SetValue(DigitalScaleValue);
+                    if IsolatedStorage.Get('DigitalScaleValue', DigitalScaleValueText) then
+                        if Evaluate(DigitalScaleValue, DigitalScaleValueText) then;
+                    StartMeasurement();
                 end;
             }
         }
     }
     var
         DigitalScaleValue: decimal;
+        TimerMiliseconds: Integer;
+
+    trigger OnOpenPage()
+    begin
+        TimerMiliseconds := 500;
+        DigitalScaleValue := 0.0;
+    end;
+
+    local procedure StartMeasurement()
+    begin
+        CurrPage.DigitalScaleDisplay.SetValue(DigitalScaleValue);
+        CurrPage.DigitalScaleDisplay.StartTimer(TimerMiliseconds);
+    end;
 }
 

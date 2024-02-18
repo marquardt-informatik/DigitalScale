@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExportedData>
+	<TenantWebServiceCollection>
+		<TenantWebService>
+			<ObjectType>
+				CodeUnit
+			</ObjectType>
+			<ObjectID>
+				50100
+			</ObjectID>
+			<ServiceName>
+				DScaleFunctions
+			</ServiceName>
+			<Published>
+				true
+			</Published>
+		</TenantWebService>
+	</TenantWebServiceCollection>
+</ExportedData>

@@ -1,8 +1,8 @@
-
+var timerObject;
 
 function SetValue(value) {
     let SSD = new SevenSegmentDisplay("SVGSSD");
-    SSD.Value = value;    
+    SSD.Value = value;
 }
 
 function SetNumberOfDigits(value) {
@@ -15,7 +15,19 @@ function SetDecimalPlaces(value) {
     SSD.NumberOfDecimalPlaces = value;
 }
 
-function Render(html)
-{
-    HTMLContainer.insertAdjacentHTML('beforeend',html);
+function Render(html) {
+    HTMLContainer.insertAdjacentHTML('beforeend', html);
+}
+
+function StartTimer(milliSeconds) {
+    timerObject = window.setInterval(TimerAction, milliSeconds);
+
+}
+
+function stopTimer() {
+    clearInterval(timerObject);
+}
+
+function TimerAction() {
+    Microsoft.Dynamics.NAV.InvokeExtensibilityMethod('RefreshPage');
 }
