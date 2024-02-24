@@ -31,7 +31,7 @@ class SevenSegmentDisplay {
         this._DecimalPointPosition = -1;
         this._Paths;
         this._Background;
-        this._unit = "kg";
+        this._unit;
 
         this._Segments = [];
 

@@ -1,8 +1,9 @@
 var timerObject;
 
-function SetValue(value) {
+function SetValue(value, uom) {
     let SSD = new SevenSegmentDisplay("SVGSSD");
     SSD.Value = value;
+    SSD.Unit = uom;
 }
 
 function SetNumberOfDigits(value) {
@@ -13,11 +14,6 @@ function SetNumberOfDigits(value) {
 function SetDecimalPlaces(value) {
     let SSD = new SevenSegmentDisplay("SVGSSD");
     SSD.NumberOfDecimalPlaces = value;
-}
-
-function SetUnit(value) {
-    let SSD = new SevenSegmentDisplay("SVGSSD");
-    SSD.Unit = value;
 }
 
 function Render(html) {

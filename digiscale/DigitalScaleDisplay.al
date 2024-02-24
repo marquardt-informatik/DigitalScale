@@ -15,10 +15,9 @@ controladdin DigitalScaleDisplay
     event OnControlAddInReady();
     event RefreshPage();
 
-    procedure SetValue(Value: Decimal);
+    procedure SetValue(Value: Decimal; UnitOfMeasure: Text);
     procedure SetNumberOfDigits(Digits: Integer);
     procedure SetDecimalPlaces(DecimalPlaces: Integer);
-    procedure SetUnit(UnitOfMeasure: Text);
     procedure Render(HTML: Text);
 
     procedure StartTimer(milliSeconds: Integer);
