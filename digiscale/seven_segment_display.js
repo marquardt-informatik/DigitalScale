@@ -1,8 +1,6 @@
 
-class SevenSegmentDisplay
-{
-	constructor(SVGID)
-	{
+class SevenSegmentDisplay {
+    constructor(SVGID) {
         this._ColorSchemes =
         {
             LCD: 1,
@@ -33,6 +31,7 @@ class SevenSegmentDisplay
         this._DecimalPointPosition = -1;
         this._Paths;
         this._Background;
+        this._unit;
 
         this._Segments = [];
 
@@ -52,8 +51,7 @@ class SevenSegmentDisplay
         // Minus sign
         this._Segments[11] = [0, 0, 0, 1, 0, 0, 0];
 
-        for (let i = 1; i <this._NumberOfDigits; i++)
-        {
+        for (let i = 1; i < this._NumberOfDigits; i++) {
             this._ValueDisplayString = " " + this._ValueDisplayString;
         }
 
@@ -62,44 +60,39 @@ class SevenSegmentDisplay
         this._CreateSegments();
 
         this._SetSegmentColours(false);
-	}
+    }
 
     //---------------------------------------------------------------
     // PROPERTIES
     //---------------------------------------------------------------
 
-	get ColorSchemes() { return this._ColorSchemes; }
+    get ColorSchemes() { return this._ColorSchemes; }
 
-	get DecimalPointTypes() { return this._DecimalPointTypes; }
+    get DecimalPointTypes() { return this._DecimalPointTypes; }
 
-	get BackgroundColor() { return this._BackgroundColor; }
-	set BackgroundColor(BackgroundColor)
-    {
+    get BackgroundColor() { return this._BackgroundColor; }
+    set BackgroundColor(BackgroundColor) {
         this._BackgroundColor = BackgroundColor;
         this._Background.setAttributeNS(null, 'style', "fill:" + this._BackgroundColor + ";");
     }
 
-	get LitSegmentColor() { return this._LitSegmentColor; }
-	set LitSegmentColor(LitSegmentColor)
-    {
+    get LitSegmentColor() { return this._LitSegmentColor; }
+    set LitSegmentColor(LitSegmentColor) {
         this._LitSegmentColor = LitSegmentColor;
         this._SetSegmentColours(true);
     }
 
-	get UnlitSegmentColor() { return this._UnlitSegmentColor; }
-	set UnlitSegmentColor(UnlitSegmentColor)
-    {
+    get UnlitSegmentColor() { return this._UnlitSegmentColor; }
+    set UnlitSegmentColor(UnlitSegmentColor) {
         this._UnlitSegmentColor = UnlitSegmentColor;
         this._SetSegmentColours(true);
     }
 
-	get ColorScheme() { return this._ColorScheme; }
-	set ColorScheme(ColorScheme)
-    {
+    get ColorScheme() { return this._ColorScheme; }
+    set ColorScheme(ColorScheme) {
         this._ColorScheme = ColorScheme;
 
-        switch (this._ColorScheme)
-        {
+        switch (this._ColorScheme) {
             // LCD
             case 1:
                 this._BackgroundColor = "#E0E0E0";
@@ -149,18 +142,21 @@ class SevenSegmentDisplay
         this._Background.setAttributeNS(null, 'style', "fill:" + this._BackgroundColor + ";");
         this._SetSegmentColours(true);
     }
+    get Unit() { return this._unit; }
+    set Unit(unit) {
+        this._unit = unit;
+        this._CreateSegments();
+        this._SetSegmentColours(true);
+    }
 
-	get NumberOfDigits() { return this._NumberOfDigits; }
-	set NumberOfDigits(NumberOfDigits)
-    {
+    get NumberOfDigits() { return this._NumberOfDigits; }
+    set NumberOfDigits(NumberOfDigits) {
         let ivalue = parseInt(NumberOfDigits);
 
-        if (isNaN(ivalue) || ivalue == null || ivalue < 1 || ivalue > 12)
-        {
+        if (isNaN(ivalue) || ivalue == null || ivalue < 1 || ivalue > 12) {
             throw new Error("NumberOfDigits must be an integer between 1 and 12");
         }
-        else
-        {
+        else {
             this._NumberOfDigits = NumberOfDigits;
             this._SetHeight();
             this._CalculateValueDisplayString();
@@ -169,47 +165,39 @@ class SevenSegmentDisplay
         }
     }
 
-	get NumberOfDecimalPlaces() { return this._NumberOfDecimalPlaces; }
-	set NumberOfDecimalPlaces(NumberOfDecimalPlaces)
-    {
+    get NumberOfDecimalPlaces() { return this._NumberOfDecimalPlaces; }
+    set NumberOfDecimalPlaces(NumberOfDecimalPlaces) {
         let ivalue = parseInt(NumberOfDecimalPlaces);
 
-        if (isNaN(ivalue) || ivalue == null || ivalue < 0 || ivalue > 10)
-        {
+        if (isNaN(ivalue) || ivalue == null || ivalue < 0 || ivalue > 10) {
             throw new Error("NumberOfDecimalPlaces must be an integer between 0 and 10");
         }
-        else
-        {
+        else {
             this._NumberOfDecimalPlaces = NumberOfDecimalPlaces;
             this._CalculateValueDisplayString();
             this._SetSegmentColours(true);
         }
     }
 
-	get DecimalPointType() { return this._DecimalPointType; }
-	set DecimalPointType(DecimalPointType)
-    {
+    get DecimalPointType() { return this._DecimalPointType; }
+    set DecimalPointType(DecimalPointType) {
         this._DecimalPointType = DecimalPointType;
         this._CalculateValueDisplayString();
         this._SetSegmentColours(true);
     }
 
-	get Value() { return this._Value; }
-	set Value(Value)
-    {
+    get Value() { return this._Value; }
+    set Value(Value) {
         let fvalue = parseFloat(Value);
         let sivalue = parseInt(Value).toString();
 
-        if (isNaN(fvalue))
-        {
+        if (isNaN(fvalue)) {
             throw new Error("Value must be a real number");
         }
-        else if (sivalue.length > this._NumberOfDigits)
-        {
+        else if (sivalue.length > this._NumberOfDigits) {
             throw new Error("Length of integer portion of Value is longer than NumberOfDigits");
         }
-        else
-        {
+        else {
             this._Value = Value;
             this._CalculateValueDisplayString();
             this._SetSegmentColours(false);
@@ -220,19 +208,15 @@ class SevenSegmentDisplay
     // METHODS
     //---------------------------------------------------------------
 
-    _SetHeight()
-    {
+    _SetHeight() {
         document.getElementById(this._SVGID).setAttribute("height", (document.getElementById(this._SVGID).getClientRects()[0].width) / (this._NumberOfDigits * 0.6));
     }
 
-    _CalculateValueDisplayString()
-    {
-        if (this._DecimalPointType == 2)
-        {
+    _CalculateValueDisplayString() {
+        if (this._DecimalPointType == 2) {
             this._ValueDisplayString = this._Value.toFixed(this._NumberOfDecimalPlaces).toString();
         }
-        else
-        {
+        else {
             this._ValueDisplayString = this._Value.toString();
         }
 
@@ -241,19 +225,16 @@ class SevenSegmentDisplay
         this._ValueDisplayString = this._ValueDisplayString.replace(".", "");
 
         // pad left
-        for (let i = this._ValueDisplayString.length + 1; i <= this._NumberOfDigits; i++)
-        {
+        for (let i = this._ValueDisplayString.length + 1; i <= this._NumberOfDigits; i++) {
             this._ValueDisplayString = " " + this._ValueDisplayString;
 
-            if (this._DecimalPointPosition > -1)
-            {
+            if (this._DecimalPointPosition > -1) {
                 this._DecimalPointPosition++;
             }
         }
     }
 
-    _CreateSegments()
-    {
+    _CreateSegments() {
         document.getElementById(this._SVGID).innerHTML = "";
 
         // Create Background
@@ -272,12 +253,12 @@ class SevenSegmentDisplay
         // Create paths
         this._Paths = [];
 
-        for (let i = 0; i < this._NumberOfDigits; i++)
-        {
-            let SVGWidth = document.getElementById(this._SVGID).getClientRects()[0].width;
-            let SVGHeight = document.getElementById(this._SVGID).getClientRects()[0].height;
-            let DigitWidth = SVGWidth / this._NumberOfDigits;
-            let Unit = SVGHeight / 40.0;
+        let SVGWidth = document.getElementById(this._SVGID).getClientRects()[0].width - 80.0;
+        let SVGHeight = document.getElementById(this._SVGID).getClientRects()[0].height;
+        let DigitWidth = SVGWidth / this._NumberOfDigits;
+        let Unit = SVGHeight / 40.0;
+
+        for (let i = 0; i < this._NumberOfDigits; i++) {
             let x = DigitWidth * i;
 
             let d = "";
@@ -372,42 +353,53 @@ class SevenSegmentDisplay
             d = "";
 
             // DECIMAL POINT
-            d += "M" + x + "," + (Unit * 34) + " ";
-            d += "L" + (x + (Unit * 3)) + "," + (Unit * 34) + " ";
-            d += "L" + (x + (Unit * 3)) + "," + (Unit * 37) + " ";
-            d += "L" + x + "," + (Unit * 37) + " ";
+            d += "M" + (x + 5) + "," + (Unit * 34) + " ";
+            d += "L" + (x + 5 + (Unit * 3)) + "," + (Unit * 34) + " ";
+            d += "L" + (x + 5 + (Unit * 3)) + "," + (Unit * 37) + " ";
+            d += "L" + (x + 5) + "," + (Unit * 37) + " ";
             d += "Z";
             this._Paths[i][7] = document.createElementNS("http://www.w3.org/2000/svg", "path");
             this._Paths[i][7].setAttributeNS(null, "d", d);
             this._Paths[i][7].setAttributeNS(null, "style", "fill:" + this._UnlitSegmentColor + ";");
             document.getElementById(this._SVGID).appendChild(this._Paths[i][7]);
         }
+        // Berechnung der Position, wo der Text erscheinen soll
+        let textX = SVGWidth + 20.0; // Setzt den Text am rechten Rand
+        let textY = SVGHeight / 1.8; // Zentriert den Text vertikal
+
+        // Erstellung des Textelements, wenn die Einheit nicht leer ist
+        if (this._unit != "") {
+            let textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            textElement.setAttributeNS(null, "x", textX);
+            textElement.setAttributeNS(null, "y", textY);
+            textElement.setAttributeNS(null, "style", "font-family: Arial, sans-serif; font-size: " + (Unit * 10) + "px;");
+            textElement.setAttributeNS(null, "text-anchor", "emd"); // Richtet den Text am rechten Rand aus
+            textElement.textContent = this._unit;
+
+            document.getElementById(this._SVGID).appendChild(textElement);
+        }
+
     }
 
-    _SetSegmentColours(RedrawAll)
-    {
+    _SetSegmentColours(RedrawAll) {
         if (RedrawAll == true)
             this._PreviousValueDisplayString = "";
 
         let s;
         let Digit;
 
-        for (let i = 0; i < this._NumberOfDigits; i++)
-        {
-            if (this._ValueDisplayString[i] != this._PreviousValueDisplayString[i])
-            {
+        for (let i = 0; i < this._NumberOfDigits; i++) {
+            if (this._ValueDisplayString[i] != this._PreviousValueDisplayString[i]) {
                 Digit = parseInt(this._ValueDisplayString[i]);
 
-                if (isNaN(Digit))
-                {
+                if (isNaN(Digit)) {
                     if (this._ValueDisplayString[i] == "-")
                         Digit = 11;
                     else
                         Digit = 10;
                 }
 
-                for (s = 0; s <= 6; s++)
-                {
+                for (s = 0; s <= 6; s++) {
                     if (this._Segments[Digit][s] == 1)
                         this._Paths[i][s].setAttributeNS(null, 'style', "fill:" + this._LitSegmentColor + ";");
                     else

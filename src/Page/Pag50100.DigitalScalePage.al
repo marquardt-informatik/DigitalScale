@@ -18,7 +18,7 @@ page 50100 DigitalScalePage
                 ApplicationArea = All;
                 trigger OnControlAddInReady();
                 begin
-                    StartMeasurement();
+                    CurrPage.DigitalScaleDisplay.StartTimer(TimerMiliseconds);
                 end;
 
                 trigger RefreshPage()
@@ -35,17 +35,19 @@ page 50100 DigitalScalePage
     var
         DigitalScaleValue: decimal;
         TimerMiliseconds: Integer;
+        UOM: Text;
 
     trigger OnOpenPage()
     begin
-        TimerMiliseconds := 500;
+        TimerMiliseconds := 200;
         DigitalScaleValue := 0.0;
+        UOM := 'mg';
     end;
 
     local procedure StartMeasurement()
     begin
-        CurrPage.DigitalScaleDisplay.SetValue(DigitalScaleValue);
-        CurrPage.DigitalScaleDisplay.StartTimer(TimerMiliseconds);
+        CurrPage.DigitalScaleDisplay.SetValue(DigitalScaleValue, UOM);
+        //CurrPage.DigitalScaleDisplay.StartTimer(TimerMiliseconds);
     end;
 }
 

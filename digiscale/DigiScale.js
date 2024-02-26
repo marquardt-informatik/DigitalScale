@@ -1,8 +1,9 @@
 var timerObject;
 
-function SetValue(value) {
+function SetValue(value, uom) {
     let SSD = new SevenSegmentDisplay("SVGSSD");
     SSD.Value = value;
+    SSD.Unit = uom;
 }
 
 function SetNumberOfDigits(value) {
@@ -21,7 +22,6 @@ function Render(html) {
 
 function StartTimer(milliSeconds) {
     timerObject = window.setInterval(TimerAction, milliSeconds);
-
 }
 
 function stopTimer() {
@@ -29,5 +29,17 @@ function stopTimer() {
 }
 
 function TimerAction() {
-    Microsoft.Dynamics.NAV.InvokeExtensibilityMethod('RefreshPage');
+    Microsoft.Dynamics.NAV.InvokeExtensibilityMethod(
+        "RefreshPage",
+        arguments,
+        false,
+        () => {
+            // Invoking the AL trigger has completed, invoke
+            // the AL trigger again in 10 seconds
+            window.setInterval(() => {
+                TimerAction();
+            },
+                milliSeconds);
+        },
+        () => { /* error handling and perhaps retrying */ });
 }
